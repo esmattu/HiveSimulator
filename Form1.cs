@@ -16,7 +16,7 @@ namespace HiveSimulator
         //Create list of bee objects
         protected List<QueenBee> queenBeeList = new();
         protected List<WorkerBee> workerBeeList = new();
-        protected List<DroneBee>
+        protected List<DroneBee> droneBeeList = new();
 
 
         public HiveSimulator()
@@ -56,6 +56,7 @@ namespace HiveSimulator
             }
             DamageButton.Enabled = true;
             StartButton.Enabled = false;
+            UpdateTextBoxes();
         }
 
         private void RestartSimButton_Click(object sender, EventArgs e)
@@ -68,22 +69,55 @@ namespace HiveSimulator
             workerBeeList.Clear();
         }
 
-        //Loop through each list of bees and call the damage method
+        //Loop through each list of bees and call the damage method then update the textboxes
         private void DamageButton_Click(object sender, EventArgs e)
         {
 
-                        BeesDeadTextBox.Text = null;
-            BeesAliveTextBox.Text = null;
-            
-            foreach(var bee in queenBeeList)
+            Random rnd = new();
+
+            foreach (var bee in queenBeeList)
             {
-                if(bee.CurrentBeeStatus == BeeStatus.Alive)
+
+                bee.DamageQueen(rnd.Next(0, 81));
+            }
+
+            foreach (var bee in droneBeeList)
+            {
+
+                bee.DamageDrone(rnd.Next(0, 81));
+            }
+
+            foreach (var bee in workerBeeList)
+            {
+
+                bee.DamageWorker(rnd.Next(0, 81));
+            }
+
+            UpdateTextBoxes();
+
+        }
+
+        /*
+         * Update the textboxes with results of the simulation. when called it will clear both text boxes
+         * and update the new results after damage has been applied
+         * 
+         */
+
+        private void UpdateTextBoxes()
+        {
+            BeesDeadTextBox.Text = null;
+            BeesAliveTextBox.Text = null;
+
+            foreach (var bee in queenBeeList)
+            {
+                if (bee.CurrentBeeStatus == BeeStatus.Alive)
                 {
                     BeesAliveTextBox.Text += "Queen Bee - Current Health: " + bee.Health + Environment.NewLine;
-                } else
+                }
+                else
                 {
                     BeesDeadTextBox.Text += "Queen Bee has died! Sad Times!" + Environment.NewLine;
-                    
+
                 }
             }
 
@@ -96,7 +130,7 @@ namespace HiveSimulator
                 else
                 {
                     BeesDeadTextBox.Text += "Drone Bee has died! Sad Times!" + Environment.NewLine;
-                    
+
                 }
             }
 
@@ -109,10 +143,9 @@ namespace HiveSimulator
                 else
                 {
                     BeesDeadTextBox.Text += "Worker Bee has died! Sad Times!" + Environment.NewLine;
-                    
+
                 }
             }
-
 
         }
     }

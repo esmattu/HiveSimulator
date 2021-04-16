@@ -63,7 +63,7 @@ namespace HiveSimulator
         {
             StartButton.Enabled = true;
             BeesAliveTextBox.Text = null;
-            BeesAliveTextBox.Text = null;
+            BeesDeadTextBox.Text = null;
             queenBeeList.Clear();
             droneBeeList.Clear();
             workerBeeList.Clear();

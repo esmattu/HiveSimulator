@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HiveSimulator.Model
 {
-    class DroneBee : Bee
+    public class DroneBee : Bee
     {
 
         public DroneBee() : base(BeeType.Drone)

@@ -10,7 +10,7 @@ namespace HiveSimulator.Model
     {
         public QueenBee() : base(BeeType.Queen)
         {
-
+            DeathThreshold = 20.00F;
         }
 
         public void DamageQueen(int damage)
@@ -22,7 +22,7 @@ namespace HiveSimulator.Model
                 return;
             }
 
-            //update the bee status as the threshold has passed.
+            //update the bee status as the threshold has been passed.
             if (!(Health > DeathThreshold))
             {
                 CurrentBeeStatus = BeeStatus.Dead;
